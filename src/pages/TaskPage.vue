@@ -75,3 +75,15 @@
         </div>
     </main>
 </template>
+<script setup>
+import {onMounted, ref} from 'vue';
+import api from '../http/api';
+onMounted(async () => {
+    try {
+        const {data} = await api.get('/tasks');
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching tasks:', error);
+    }
+});
+</script>
