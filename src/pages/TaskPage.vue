@@ -21,15 +21,22 @@
                             />
                         </ul>
                     </div>
+                    <!-- List of uncompleted tasks -->
+                    <Tasks :tasks="uncompletedTasks" />
+
+                    <!-- show toggle button -->
+
+                    <!-- list of completed tasks -->
+                    <Tasks :tasks="completedTasks" />
                 </div>
             </div>
         </div>
     </main>
 </template>
 <script setup>
-import {onMounted, ref} from 'vue';
+import {computed, onMounted, ref} from 'vue';
 import { allTasks } from '../http/task-api';
-import Task from '../components/tasks/Task.vue';
+import Tasks from '../components/tasks/Tasks.vue';
 const tasks = ref([]);
 
 onMounted(async () => {
@@ -40,4 +47,13 @@ onMounted(async () => {
         console.error('Error fetching tasks:', error);
     }
 });
+
+const uncompletedTasks = computed(() => 
+    tasks.value.filter(task => !task.is_completed)
+);
+
+const completedTasks = computed(() => 
+    tasks.value.filter(task => task.is_completed)
+);
+
 </script>
