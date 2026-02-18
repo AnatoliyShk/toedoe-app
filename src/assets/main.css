@@ -1,0 +1,15 @@
+.form-check-input.completed {
+    filter: none;
+    opacity: 0.5;
+}
+
+.completed {
+    color: #9ca3af;
+    text-decoration: line-through;
+}
+
+.task-date {
+    color: #6b7280;
+    font-size: 11px;
+    padding: 0 2px;
+}
