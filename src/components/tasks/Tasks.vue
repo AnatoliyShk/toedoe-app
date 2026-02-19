@@ -1,5 +1,5 @@
 <template>
-    <div class="card mt-2" v-if="tasks.length">
+    <div class="card mt-2" v-if="tasks.length && show">
         <ul class="list-group list-group-flush">
             <Task
                 v-for="task in tasks"
@@ -17,6 +17,10 @@ defineProps({
     tasks: {
         type: Array,
         required: true
+    },
+    show: {
+        type: Boolean,
+        default: true
     }
 });
 </script>
