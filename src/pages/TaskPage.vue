@@ -4,23 +4,7 @@
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <!-- Add new Task -->
-                    <div class="relative">
-                        <input
-                            type="text"
-                            class="form-control form-control-lg padding-right-lg"
-                            placeholder="+ Add new task. Press enter to save."
-                        />
-                    </div>
-                    <!-- List of tasks -->
-                    <div class="card mt-2">
-                        <ul class="list-group list-group-flush">
-                            <Task
-                                v-for="task in tasks"
-                                :key="task.id"
-                                :task="task"
-                            />
-                        </ul>
-                    </div>
+                    <NewTask @added="handleAddedTask" />
                     <!-- List of uncompleted tasks -->
                     <Tasks :tasks="uncompletedTasks" />
 
@@ -41,8 +25,9 @@
 </template>
 <script setup>
 import {computed, onMounted, ref} from 'vue';
-import { allTasks } from '../http/task-api';
+import { allTasks, createTask } from '../http/task-api';
 import Tasks from '../components/tasks/Tasks.vue';
+import NewTask from '../components/tasks/NewTask.vue';
 const tasks = ref([]);
 
 onMounted(async () => {
@@ -71,4 +56,9 @@ const completedTasksIsVisible = computed(() =>
 );
 
 const showCompletedTasks = ref(completedTasksIsVisible.value)
+
+const handleAddedTask = async (newTask) => {
+    const {data: createdTask} = await createTask(newTask)
+    tasks.value.unshift(createdTask.data)
+}
 </script>
