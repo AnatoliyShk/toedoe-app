@@ -20,6 +20,7 @@
                     type="text"
                     @keyup.esc="$event => isEdit = false" v-focus
                     @keyup.enter="updateTask"
+                    v-model="editingTask"
                     />
                 </div>
                 <span v-else>{{ task.name }}</span>
@@ -41,6 +42,7 @@ const props = defineProps({
 });
 const emit = defineEmits(['updated']);
 const isEdit = ref(false)
+const editingTask = ref(props.task.name);
 const completedClass = computed(() => 
     props.task.is_completed ? "completed" : ""
 );

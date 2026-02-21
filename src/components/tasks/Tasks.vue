@@ -5,6 +5,7 @@
                 v-for="task in tasks"
                 :key="task.id"
                 :task="task"
+                @updated="$emit('updated', $event)"
             />
         </ul>
 

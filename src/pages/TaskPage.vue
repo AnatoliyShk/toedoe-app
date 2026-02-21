@@ -62,9 +62,9 @@ const handleAddedTask = async (newTask) => {
     tasks.value.unshift(createdTask.data)
 }
 
-const handleUpdatedTask = async (updatedTask) => {
-    const {data: updatedTask} = await updateTask(updatedTask.id, {
-        name: updatedTask.name
+const handleUpdatedTask = async (task) => {
+    const {data: updatedTask} = await updateTask(task.id, {
+        name: task.name
     })
     const currentTask = tasks.value.find(task => task.id === updatedTask.data.id);
     currentTask.name = updatedTask.data.name;
