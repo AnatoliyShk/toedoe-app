@@ -18,7 +18,6 @@ const newTask = reactive({
 const emit = defineEmits(['added']);
 const addNewTask = event => {
     if(event.target.value.trim()) {
-        console.log(event.target.value);
         newTask.name = event.target.value;
         event.target.value = "";
         emit('added', newTask);
