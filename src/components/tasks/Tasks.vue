@@ -5,7 +5,9 @@
                 v-for="task in tasks"
                 :key="task.id"
                 :task="task"
-                @updated="$emit('updated', $event)"
+                @updated="$event => $emit('updated', $event)"
+                @completed="$event => $emit('completed', $event)"
+                @removed="$event => $emit('removed', $event)"
             />
         </ul>
 

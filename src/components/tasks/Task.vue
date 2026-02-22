@@ -8,6 +8,7 @@
                 :class="completedClass"
                 type="checkbox"
                 :checked="task.is_completed"
+                @change="markTaskAsCompleted"
             />
             <div
                 class="ms-2 flex-grow-1"
@@ -18,7 +19,7 @@
                 <div class="relative" v-if="isEdit">
                     <input class="editable-task"
                     type="text"
-                    @keyup.esc="$event => isEdit = false" v-focus
+                    @keyup.esc="undo" v-focus
                     @keyup.enter="updateTask"
                     v-model="editingTask"
                     />
@@ -27,7 +28,9 @@
             </div>
             <!-- <div class="task-date">24 Feb 12:00</div> -->
         </div>
-        <TaskActions @edit="$event => isEdit = true" class="mt-2" v-show="!isEdit"/>
+        <TaskActions
+            @edit="$event => isEdit = true" class="mt-2" v-show="!isEdit"
+            @remove="removeTask"/>
     </li>
 </template>
 
@@ -40,7 +43,7 @@ const props = defineProps({
         required: true
     }
 });
-const emit = defineEmits(['updated']);
+const emit = defineEmits(['updated', 'completed', 'removed']);
 const isEdit = ref(false)
 const editingTask = ref(props.task.name);
 const completedClass = computed(() => 
@@ -60,5 +63,24 @@ const updateTask = (event) => {
     }
     isEdit.value = false;
     emit('updated', updateTask);
+}
+
+const markTaskAsCompleted = (event) => {
+    const updateTask = {
+        ...props.task,
+        is_completed: !props.task.is_completed
+    }
+    emit('completed', updateTask);
+}
+
+const removeTask = () => {
+    if(confirm('Are you sure you want to delete this task?')) {
+        emit('removed', props.task);
+    }
+}
+
+const undo = () => {
+    isEdit.value = false;
+    editingTask.value = props.task.name;
 }
 </script>

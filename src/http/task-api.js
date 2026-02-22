@@ -18,6 +18,6 @@ export const removeTask = (id) => {
   return api.delete(`${resource}/${id}`);
 }
 
-export const completeTask = (id) => {
-  return api.patch(`${resource}/${id}/complete`);
+export const completeTask = (id, task) => {
+  return api.patch(`${resource}/${id}/complete`, task);
 }
