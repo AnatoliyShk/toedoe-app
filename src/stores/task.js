@@ -1,6 +1,5 @@
-import { completeTask } from '@/http/task-api';
 import { defineStore } from 'pinia';
-import { allTasks } from '../http/task-api';
+import { allTasks, createTask, updateTask, completeTask, removeTask } from '../http/task-api';
 import { ref, reactive, computed } from 'vue';
 const tmp = {
     state: () => ({
@@ -37,10 +36,46 @@ export const useTaskStore = defineStore('taskStore', () => {
         }
     }
 
+
+    const handleAddedTask = async (newTask) => {
+        const {data: createdTask} = await createTask(newTask)
+        tasks.value.unshift(createdTask.data)
+    }
+
+    const handleUpdatedTask = async (task) => {
+        const {data: updatedTask} = await updateTask(task.id, {
+            name: task.name
+    })
+    
+    const currentTask = tasks.value.find(item => item.id === updatedTask.data.id);
+        currentTask.name = updatedTask.data.name;
+    }
+
+    const handleCompletedTask = async (task) => {
+        const {data: updatedTask} = await completeTask(task.id, {
+            is_completed: task.is_completed
+        })
+        const currentTask = tasks.value.find(item => item.id === task.id);
+        currentTask.is_completed = updatedTask.data.is_completed;
+    }
+
+    const handleRemovedTask = async (task) => {
+        await removeTask(task.id);
+        const index = tasks.value.findIndex(item => item.id === task.id);
+        if (index !== -1) {
+            tasks.value.splice(index, 1);
+        }
+    }
+
+
     return {
         tasks,
         completedTasks,
         uncompletedTasks,
-        fetchAllTasks
+        fetchAllTasks,
+        handleAddedTask,
+        handleUpdatedTask,
+        handleCompletedTask,
+        handleRemovedTask
     }
 }); 
