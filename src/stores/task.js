@@ -1,20 +1,23 @@
+import { completeTask } from '@/http/task-api';
 import { defineStore } from 'pinia';
+import { allTasks } from '../http/task-api';
 
 export const useTaskStore = defineStore('taskStore', {
     state: () => ({
-        tasks: [{
-            id: 1,
-            name: 'Sample Task',
-            is_completed: false,
-        },{
-            id: 2,
-            name: 'Sample Task 2',
-            is_completed: true,
-        }],
+        tasks: [],
     }),
     getters: {
-        completed: (state) => state.tasks.filter(task => task.is_completed),
-        uncompleted: (state) => state.tasks.filter(task => !task.is_completed),
-        uncompletedCount: (state) => state.tasks.filter(task => !task.is_completed).length,
+        completedTasks: (state) => state.tasks.filter(task => task.is_completed),
+        uncompletedTasks: (state) => state.tasks.filter(task => !task.is_completed),
+    },
+    actions: {
+        async fetchAllTasks() {
+            try {
+                const { data } = await allTasks();
+                this.tasks = data.data;
+            } catch (error) {
+                console.error('Error fetching tasks:', error);
+            }
+        }
     }
 }); 
