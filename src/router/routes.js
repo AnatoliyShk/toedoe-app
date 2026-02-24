@@ -7,3 +7,5 @@ const routes = [
     { path: '/login', component: LoginPage, name: 'login' },
     { path: '/register', component: RegisterPage, name: 'register' },
 ];
+
+export default routes;
