@@ -40,3 +40,10 @@
         </div>
     </nav>
 </template>
+
+<style scoped>
+.nav-link.router-link-active {
+    font-weight: bold;
+    color: #007bff;
+}
+</style>
