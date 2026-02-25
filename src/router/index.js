@@ -8,7 +8,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from) => {
-    return { name: "login"};
+    if(to.meta.auth) {
+        return { name: 'login', query: { redirect: to.fullPath } };
+    }
 });
 
 export default router;
