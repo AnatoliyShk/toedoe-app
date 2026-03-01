@@ -5,17 +5,17 @@ export const csrfCookie = () => {
 }
 
 export const login = (credentials) => {
-  return api.post('/login', credentials);
+  return api.post('auth/login', credentials);
 }
 
 export const register = (user) => {
-  return api.post('/register', user);
+  return api.post('auth/register', user);
 }
 
 export const logout = () => {
-  return api.post('/logout');
+  return api.post('auth/logout');
 }
 
 export const getUser = () => {
-  return api.get('/user');
+  return api.get('api/user');
 }
