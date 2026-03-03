@@ -35,8 +35,15 @@
                         </li>
                     </template>
                     <template v-else>
-                        <li class="nav-item">
-                            <router-link to="/logout" class="btn btn-outline-secondary ms-2" @click.prevent="logout">Logout</router-link>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" :class="toggleClass" @click.prevent="toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ store.user.name }}
+                            </a>
+                            <ul class="dropdown-menu" :class="toggleClass">
+                                <li>
+                                    <router-link to="/logout" class="dropdown-item" @click.prevent="logout">Logout</router-link>
+                                </li>
+                            </ul>
                         </li>
                     </template>
                 </ul>
@@ -48,8 +55,22 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth'
+import { computed, ref } from 'vue';
 const router = useRouter();
 const store = useAuthStore();
+const isOpenmenu = ref(false);
+
+const logout = async () => {
+    await store.handleLogout();
+    isOpenmenu.value = false;
+    router.push({ name: 'login' });
+}
+const toggle = () => {
+    isOpenmenu.value = !isOpenmenu.value;
+}
+const toggleClass = computed(() => {
+    return isOpenmenu.value ? 'show' : '';
+});
 </script>
 
 <style scoped>
