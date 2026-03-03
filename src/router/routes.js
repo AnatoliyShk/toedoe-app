@@ -11,14 +11,32 @@ const routes = [
         path: '/tasks',
         component: TaskPage,
         name: 'tasks',
-        meta: {auth: true}
+        meta: {
+            auth: true
+        }
     },
-    { path: '/login', component: LoginPage, name: 'login' },
-    { path: '/register', component: RegisterPage, name: 'register' },
+    {
+        path: '/login',
+        component: LoginPage,
+        name: 'login',
+        meta: {
+            guest: true
+        }
+    },
+    { 
+        path: '/register',
+        component: RegisterPage,
+        name: 'register',
+        meta: {
+            guest: true
+        }
+    },
     { path: '/summary',
         component: SummaryPage,
         name: 'summary',
-        meta: {auth: true}
+        meta: {
+            auth: true
+        }
     },
     { path: '/:notFound(.*)', component: NotFoundErrorPage, name: 'error.404' },
 ];

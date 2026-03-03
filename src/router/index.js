@@ -15,6 +15,8 @@ router.beforeEach(async (to, from) => {
             name: 'login',
             query: { redirect: to.fullPath }
         };
+    } else if (to.meta.guest && store.isLoggedIn) {
+        return {name: "tasks"};
     }
 });
 
