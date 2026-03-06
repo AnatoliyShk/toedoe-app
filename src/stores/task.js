@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { allTasks, createTask, updateTask, completeTask, removeTask } from '../http/task-api';
 import { ref, reactive, computed } from 'vue';
+import axios from 'axios';
 const tmp = {
     state: () => ({
         tasks: [],

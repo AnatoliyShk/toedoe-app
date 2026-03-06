@@ -3,10 +3,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <h1 class="mb-4">
-                        Summary
-                        <small class="text-muted">(Tasks this week)</small>
-                    </h1>
+                    <div
+                        class="d-flex justify-content-between align-items-center mb-4"
+                    >
+                        <h1>
+                            Summary
+                            <small class="text-muted fs-4">{{ selectedFilter }}</small>
+                        </h1>
+                        <SummaryFilter @update="selectedFilter = $event" />
+                    </div>
                     <div
                         v-for="(tasks, description) in summaries"
                         :key="description"
@@ -21,14 +26,15 @@
 
 <script setup>
 import { useSummaryStore } from "../stores/summary";
-import { onMounted } from "vue";
-import { storeToRefs } from "pinia";    
+import { onMounted, ref } from "vue";
+import { storeToRefs } from "pinia";
 import Summaries from "../components/summaries/Summaries.vue";
-import SummaryFilter from "@/components/summaries/filter/SummaryFilter.vue";
+import SummaryFilter from "../components/summaries/filter/SummaryFilter.vue";
 
-const store = useSummaryStore();
+const store = useSummaryStore();    
 const { summaries } = storeToRefs(store);
 const { fetchTasksSummary } = store;
+const selectedFilter = ref('')
 
 onMounted(async () => {
     await fetchTasksSummary();

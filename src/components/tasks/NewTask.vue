@@ -13,7 +13,7 @@
 import { reactive } from 'vue';
 import { useTaskStore} from "../../stores/task";
 
-const store = useTaskStore
+const store = useTaskStore()
 const {handleAddedTask} = store
 
 const newTask = reactive({
