@@ -22,8 +22,9 @@
 <script setup>
 import { useSummaryStore } from "../stores/summary";
 import { onMounted } from "vue";
-import { storeToRefs } from "pinia";
+import { storeToRefs } from "pinia";    
 import Summaries from "../components/summaries/Summaries.vue";
+import SummaryFilter from "@/components/summaries/filter/SummaryFilter.vue";
 
 const store = useSummaryStore();
 const { summaries } = storeToRefs(store);
