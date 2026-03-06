@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { startOfWeek, endOfWeek, subWeeks, format } from 'date-fns';
 import Dropdown from '@/components/dropdown/Dropdown.vue';
 import DropdownTrigger from '@/components/dropdown/DropdownTrigger.vue';
@@ -21,9 +22,16 @@ const filterItems = computed (() => {
     }
 })
 const emit = defineEmits(["update"]);
+
+const router = useRouter();
+
 const filter = (period) => {
     activeFilterKey.value = period;
-    emit('update', activeFilter.value);
+    router.push({ name: 'summary', query: { period } });
+    emit('update', {
+        text: activeFilter.value,
+        key: activeFilterKey.value
+    });
 }
 onMounted(() => {
     emit('update', activeFilter.value);
