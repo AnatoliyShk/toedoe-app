@@ -1,15 +1,15 @@
 import api from "./api";
 
 export const login = (credentials) => {
-  return api.post('auth/login', credentials);
+  return api.post('/api/auth/login', credentials);
 }
 
 export const register = (user) => {
-  return api.post('auth/register', user);
+  return api.post('/api/auth/register', user);
 }
 
 export const logout = () => {
-  return api.post('auth/logout');
+  return api.post('/api/auth/logout');
 }
 
 export const getUser = () => {
