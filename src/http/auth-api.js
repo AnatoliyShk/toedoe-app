@@ -1,9 +1,5 @@
 import api from "./api";
 
-export const csrfCookie = () => {
-  return api.get('/sanctum/csrf-cookie');
-}
-
 export const login = (credentials) => {
   return api.post('auth/login', credentials);
 }
