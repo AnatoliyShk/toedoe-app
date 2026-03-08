@@ -65,7 +65,7 @@ const route = useRoute();
  
 watch(
 	() => route.query, 
-	async (query) => { await fetchAllTasks(query) }, 
+	async (query) => {await fetchAllTasks(query)},
 	{ immediate: true }
 );
 </script>

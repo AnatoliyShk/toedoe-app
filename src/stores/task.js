@@ -30,7 +30,7 @@ export const useTaskStore = defineStore('taskStore', () => {
 
     const fetchAllTasks = async (params = {}) => {
         try {
-            const { data } = await allTasks();
+            const { data } = await allTasks(params);
             tasks.value = data.data;
         } catch (error) {
             console.error('Error fetching tasks:', error);
