@@ -28,7 +28,7 @@ export const useTaskStore = defineStore('taskStore', () => {
         tasks.value.filter(task => task.is_completed)
     );
 
-    const fetchAllTasks = async () => {
+    const fetchAllTasks = async (params = {}) => {
         try {
             const { data } = await allTasks();
             tasks.value = data.data;
@@ -45,7 +45,8 @@ export const useTaskStore = defineStore('taskStore', () => {
 
     const handleUpdatedTask = async (task) => {
         const {data: updatedTask} = await updateTask(task.id, {
-            name: task.name
+            name: task.name,
+            priority_id: task.priority_id
     })
     
     const currentTask = tasks.value.find(item => item.id === updatedTask.data.id);
